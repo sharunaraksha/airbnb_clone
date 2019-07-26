@@ -1,0 +1,6 @@
+<% if @booking.any? %>
+  <ol class="listings">
+    <%= render @booking %>
+  </ol>
+  <%= will_paginate @booking %>
+<% end %>

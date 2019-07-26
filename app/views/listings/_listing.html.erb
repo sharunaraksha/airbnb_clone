@@ -1,0 +1,35 @@
+<li id="listing-<%= listing.id %>">
+  <table>
+    <tr>
+      <td>
+  <div class="pic">
+    <% @picture=Picture.where(listing_id: listing.id).first %>
+    <%if !@picture.nil? %>
+      <%= link_to(image_tag(@picture.attachments[0].thumb.url, alt: 'Image'), @picture.attachments[0].url, target: '_blank') %>
+    <% end %>
+  </div>
+  </td>
+  <td>
+  <div class="card">
+  <h5> Lister Name:</h5><span class="user"><%= link_to listing.user.name, listing.user %></span>
+  <h5> Property Type:</h5><span class="content"><%= listing.property_type %></span>
+  <h5> Price/per guest:</h5><span class="content"><%= listing.price_per_guest %></span>
+  <h5> Description:</h5><span class="content"><%= listing.description %></span>
+  </div>
+  </td>
+  <td>
+    <div class="button"><%= link_to "Book", controller: "bookings", action: "new", listing_id: listing.id %></div>
+  </td>
+  </tr>
+</table>
+    
+    
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(listing.created_at) %> ago. <% if current_user?(listing.user) %>
+       <div ><%= link_to "Delete", listing, method: :delete,
+                                       data: { confirm: "You sure?" } %></div>
+   
+    <% end %>
+  </span>
+</li>
+

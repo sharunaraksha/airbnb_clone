@@ -1,0 +1,55 @@
+<% provide(:title, 'Book A Room') %>
+<h1>Book A Room</h1>
+<table>
+    <tr>
+      
+  <div class="pic">
+    <% @picture=Picture.where(listing_id: @booking.listing.id).first %>
+    <% @loc=Location.where(listing_id: @booking.listing_id).first %>
+    <% @ame=Amenity.where(listing_id: @booking.listing_id) %>
+    <% if @picture.attachments? %>
+  
+    <% @picture.attachments.each do |attachment| %>
+    <td class="more-padding-on-right">
+      <%= link_to(image_tag(attachment.thumb.url, alt: 'Image'), attachment.url, target: '_blank') %>
+    </td>
+    <% end %>
+  <br>
+<% end %>
+  </div>
+  
+  <td>
+  <div class="card">
+  <h3> Property type:</h3><span class="user"><h5><%=Listing.find(@booking.listing_id).property_type %></h5></span>
+  <h3> Location:</h3><span class="user"><h5><%=  @loc.address + "," + @loc.city + "," + @loc.state + ","+ @loc.country %></h5></span>
+  <h3> Amenities:</h3>
+  <ul>
+  <% @ame.each do |ame| %>
+      <li><%= ame.name %></li>
+  <% end %>
+  </ul>
+  </div>
+  </td>
+</tr>
+  </table>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@booking, url: bookings_new_path, :html => { :multipart => true }) do |f| %>
+   
+      <%= render 'shared/error_messages_booking' %>
+      <%= f.label :check_in %>
+      <%= f.date_field :check_in, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+
+      <%= f.label :check_out %>
+      <%= f.date_field :check_out, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+
+      <%= f.label :no_of_guests %>
+      <%= f.select(:no_of_guests, @no_of_guests, {}, {class: "form-control"}) %>
+      
+      <%= f.hidden_field :listing_id, value: @booking.listing_id %>
+
+      
+      <%= f.submit "Book Room", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

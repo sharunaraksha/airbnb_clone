@@ -1,0 +1,36 @@
+<% provide(:title, 'Add Listing') %>
+<h1>Add Listing</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= simple_form_for(@listing, url: listings_new_path, :html => { :multipart => true }) do |f| %>
+   
+      <%= render 'shared/error_messages_listing' %>
+      <%= f.label :property_type %>
+      <%= f.select(:property_type,@prop_type, {}, {class: "form-control"}) %>
+
+      <%= f.label :no_of_guests %>
+      <%= f.select(:no_of_guests,@no_of_guests, {}, {class: "form-control"}) %>
+
+      <div class = "amenities">
+      <%= f.simple_fields_for :amenities do |g| %>
+        <%= render 'amenity_fields', :f => g %>
+      <% end %>
+      </div>
+
+      <%= link_to_add_association "Add Amenity", f, :amenities , class: 'btn btn-primary' , data: { association_insertion_node: '.amenities', association_insertion_method: :append }%>
+
+      <%= f.simple_fields_for :location do |g| %>
+        <%= render 'location_add', :f => g %>
+      <% end %>
+
+      <%= f.label :price_per_guest %>
+      <%= f.number_field :price_per_guest, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control' %>
+
+      <%= f.submit "Add Pictures", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

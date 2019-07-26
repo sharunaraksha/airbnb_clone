@@ -1,0 +1,14 @@
+<% if post.image? %>
+    <%= image_tag post.image.thumb.url %>
+    <div>
+      <%= label_tag :remove_image do %>
+        Remove image
+        <%= f.check_box :remove_image %>
+      <% end %>
+    </div>
+<% end %>
+
+<div>
+    <%= f.label :attachments %>
+    <%= f.file_field :attachments, multiple: true %>
+</div>

@@ -1,0 +1,29 @@
+<li id="listing-<%= booking.id %>">
+  <table>
+    <tr>
+      <td>
+  <div class="pic">
+  <% @picture=Picture.where(listing_id: booking.listing_id).first %>
+    <%if !@picture.nil? %>
+      <%= link_to(image_tag(@picture.attachments[0].thumb.url, alt: 'Image'), @picture.attachments[0].url, target: '_blank') %>
+    <% end %>
+  </div>
+  </td>
+    <td>
+  <div class="card">
+  <h5> Listing ID:</h5><span class="content"><%= Listing.where(id: booking.listing_id).first.id  %></span><br>
+  <h5> Check In Date:</h5><span class="content"><%= booking.check_in %></span>
+  <h5> Check Out Date:</h5><span class="content"><%= booking.check_out %></span><br>
+</div>
+</td>
+</tr>
+</table>
+  <span class="timestamp">
+    Booked  <%= time_ago_in_words(booking.created_at) %> ago.
+    <% if current_user?(booking.user) %>
+      <%= link_to "Delete Booking", booking, method: :delete,
+                                       data: { confirm: "You sure?" } %>
+    <% end %>
+  </span>
+
+</li>

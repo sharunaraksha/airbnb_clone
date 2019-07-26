@@ -1,0 +1,12 @@
+
+	<p class="nested-fields">    
+        <%= f.label :amenities_name %>
+        <%= f.select(:name,@amenities, {}, {class: "form-control"}) %>
+        
+        <%= f.label :amenities_description %>
+        <%= f.text_area :description , class: 'form-control'%>
+        
+        <%= link_to_remove_association "remove amenity",f, class: 'btn btn-primary btn-xs' %> 
+       
+    </p>
+  

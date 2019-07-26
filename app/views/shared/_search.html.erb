@@ -1,0 +1,31 @@
+<!--<div class="wrap">
+   <div class="search">
+     <table>
+     	<tr>
+     		<td>
+      <input type="date" class="searchTerm" >
+  </td>
+  <td>
+     <input type="date" class="searchTerm" >
+ </td>
+ <td>
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+     </button>
+ </td><tr>
+   </div>
+</div>-->
+
+      
+<%= form_tag home_path, :method => 'get', :id => "price_search" do %>
+  <p>
+    
+    <%= select_tag(:search, options_for_select([["All","all"],["<1000",1],["1000 - 2000",2],[">2000",3]], params[:search] ), class:"select") %>
+    
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  <div id="products"><%= render 'shared/feed' %></div>
+<% end %>
+
+
+

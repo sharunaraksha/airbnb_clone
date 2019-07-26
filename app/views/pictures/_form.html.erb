@@ -1,0 +1,20 @@
+<%= form_for @picture do |f| %>
+  <%= render 'shared/errors_pics', object: @picture %>
+ 
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+
+  
+  <div>
+    <%= f.label :attachments %>
+    <%= f.file_field :attachments, multiple: true, class: 'form-control' %>
+  </div>
+
+  <%= f.hidden_field :listing_id, value: listing_id %>
+
+ 
+  <%= f.submit "Upload image", class: "btn btn-primary" %>
+<% end %>
